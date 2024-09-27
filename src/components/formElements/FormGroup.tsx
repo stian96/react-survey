@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { FormGroupProps } from "../../interfaces/interface";
 import { checkboxList } from "../../data/data";
 
-const FormGroup = ({ text, onChange }: FormGroupProps) => {
-    const [selectedFeatures, setSelectedFeatures] = useState<string []>([]);
+const FormGroup = ({ text, feature, onChange }: FormGroupProps) => {
+    // const [selectedFeatures, setSelectedFeatures] = useState<string []>([]);
 
     const handleCheckboxClick = (value: string) => {
-        const updatedFeatures = selectedFeatures.includes(value) ? selectedFeatures.filter(item => item !== value) : [...selectedFeatures, value];
-        setSelectedFeatures(updatedFeatures);
+        const updatedFeatures = feature.includes(value) ? feature.filter(item => item !== value) : [...feature, value];
         onChange(updatedFeatures); 
     };
 
@@ -19,7 +18,7 @@ const FormGroup = ({ text, onChange }: FormGroupProps) => {
                     <input 
                         type="checkbox"
                         name={`checkbox-${item.id}`}
-                        checked={selectedFeatures.includes(item.value)}
+                        checked={feature.includes(item.value)}
                         onChange={() => handleCheckboxClick(item.value)}
                     />
                     <label htmlFor={`checkbox-${item.id}`}>{item.value}</label>

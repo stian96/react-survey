@@ -23,6 +23,7 @@ const InputGroup = ({
             setUserInformation(event.target.value);
     }
 
+
     return (
         <label> {labelText}
         { isTextArea ? (

@@ -10,5 +10,6 @@ export interface InputGroupProps {
 
 export interface FormGroupProps {
     text: string
+    feature: string[]
     onChange: (selectedFeatures: string[]) => void
 }

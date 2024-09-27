@@ -3,7 +3,6 @@ import FormGroup from "./FormGroup";
 import InputGroup from "./InputGroup";
 import FormGroupRadio from "./FormGroupRadio";
 
-
 const Form = ({ onSubmit }) => {
     const [bestFeatures, setBestFeatures] = useState<string[]>([]);
     const [worstFeatures, setWorstFeatures] = useState<string[]>([]);
@@ -14,8 +13,13 @@ const Form = ({ onSubmit }) => {
     const [usernameInput, setUsernameInput] = useState('');
     const [emailInput, setEmailInput] = useState('');
 
+    const formGroup = [
+        { id: 1, text: "What would you say that are the best features of your rubber duck?", feature: bestFeatures, setState: setBestFeatures },
+        { id: 2, text: "What would you say that are the worst bits of your rubber duck?", feature: worstFeatures, setState: setWorstFeatures },
+    ]
+
     const inputGroupInfo = [
-        { id: 1, label: "Put your name here (if you feel like it):", type: 'text', name: 'username', state: usernameInput, setState: setUsernameInput },
+        { id: 1, label: "Put your name here (if you feel like it):", type: 'text', name: 'username', state: usernameInput,  setState: setUsernameInput },
         { id: 2, label: "Leave us your email pretty please??", type: "email", name: "email", state: emailInput, setState: setEmailInput }
     ];
 
@@ -38,13 +42,31 @@ const Form = ({ onSubmit }) => {
             additionalInfo: textAreaInput
         };
         onSubmit(answers);
+        reset();
+    }
+
+    const reset = () => {
+        setBestFeatures([]);
+        setWorstFeatures([]);
+        setColorRating(0);
+        setConsistencyRating(0);
+        setLogoRating(0);
+        setTextAreaInput('');
+        setUsernameInput('');
+        setEmailInput('');
     }
 
     return (
         <form className="form">
             <h2>Tell us what you think about your rubber duck!</h2>
-            <FormGroup text="What would you say that are the best features of your rubber duck?" onChange={setBestFeatures}/>
-            <FormGroup text="What would you say that are the worst bits of your rubber duck?" onChange={setWorstFeatures}/>
+            { formGroup.map((item) => (
+                <FormGroup 
+                    key={item.id}
+                    text={item.text}
+                    feature={item.feature}
+                    onChange={item.setState}
+                />
+            ))}
             { radioSections.map((radioItem) => (
                 <FormGroupRadio 
                     key={radioItem.id} 
