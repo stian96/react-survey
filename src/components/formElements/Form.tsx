@@ -3,7 +3,8 @@ import FormGroup from "./FormGroup";
 import InputGroup from "./InputGroup";
 import FormGroupRadio from "./FormGroupRadio";
 
-const Form = () => {
+
+const Form = ({ onSubmit }) => {
     const [bestFeatures, setBestFeatures] = useState<string[]>([]);
     const [worstFeatures, setWorstFeatures] = useState<string[]>([]);
     const [consistencyRating, setConsistencyRating] = useState<number>(0);
@@ -26,16 +27,17 @@ const Form = () => {
 
     const submit = (event) => {
         event.preventDefault();
-        console.log(
-            { 
-                bestFeatures: bestFeatures, 
-                worstFeatures: worstFeatures,
-                consistencyRating: consistencyRating,
-                colorRating: colorRating,
-                logoRating: logoRating,
-                username: usernameInput,
-                email: emailInput
-            });
+        const answers = {
+            bestFeatures: bestFeatures,
+            worstFeatures: worstFeatures,
+            consistencyRating: consistencyRating,
+            colorRating: colorRating,
+            logoRating: logoRating,
+            username: usernameInput,
+            email: emailInput,
+            additionalInfo: textAreaInput
+        };
+        onSubmit(answers);
     }
 
     return (
@@ -68,7 +70,7 @@ const Form = () => {
                     inputName={group.name}
                     inputValue={group.state}
                     setUserInformation={group.setState}
-            />
+                />
             ))}
             <input 
                 className="form__submit" 
