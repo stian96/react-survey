@@ -1,20 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { InputGroupProps } from "../../interfaces/interface";
 
-interface InputGroupProps {
-    labelText: string
-    isTextArea: boolean
-    inputType?: string
-    inputName?: string
-    inputValue?: string
-}
+const InputGroup = ({ 
+    labelText, 
+    isTextArea, 
+    inputType, 
+    inputName, 
+    inputValue="",
+    setExtraInformation,
+    setUserInformation
+}: InputGroupProps) => {
 
-const InputGroup = ({ labelText, isTextArea, inputType, inputName, inputValue="" }: InputGroupProps) => {
-    const [textAreaInput, setTextAreaInput] = useState('');
-
-
-    const handleTextAreaChange = (event) => {
+    const handleTextAreaChange = (event: { preventDefault: () => void; target: { value: string; }; }) => {
         event.preventDefault();
-        setTextAreaInput(event.target.value);
+        if (setExtraInformation) 
+            setExtraInformation(event.target.value);
+    }
+
+    const handleUserInfo = (event: { preventDefault: () => void; target: { value: string; }; }) => {
+        event.preventDefault();
+        if (setUserInformation)
+            setUserInformation(event.target.value);
     }
 
     return (
@@ -24,13 +30,15 @@ const InputGroup = ({ labelText, isTextArea, inputType, inputName, inputValue=""
                 name="review"
                 cols={30}
                 rows={10} 
+                value={inputValue}
                 onChange={handleTextAreaChange}
             />
         ) : (
             <input
                 type={inputType}
                 name={inputName}
-               // value={inputValue}
+                value={inputValue}
+                onChange={handleUserInfo}
             />
         )}
         </label>

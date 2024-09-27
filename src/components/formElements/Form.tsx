@@ -3,7 +3,6 @@ import FormGroup from "./FormGroup";
 import InputGroup from "./InputGroup";
 import FormGroupRadio from "./FormGroupRadio";
 
-// TODO: Fetch the rest of the state tomorrow!
 const Form = () => {
     const [bestFeatures, setBestFeatures] = useState<string[]>([]);
     const [worstFeatures, setWorstFeatures] = useState<string[]>([]);
@@ -14,14 +13,12 @@ const Form = () => {
     const [usernameInput, setUsernameInput] = useState('');
     const [emailInput, setEmailInput] = useState('');
 
-
     const inputGroupInfo = [
-        { id: 1, label: "Put your name here (if you feel like it):", type: 'text', name: 'username' },
-        { id: 2, label: "Leave us your email pretty please??", type: "email", name: "email" }
-    ]
+        { id: 1, label: "Put your name here (if you feel like it):", type: 'text', name: 'username', state: usernameInput, setState: setUsernameInput },
+        { id: 2, label: "Leave us your email pretty please??", type: "email", name: "email", state: emailInput, setState: setEmailInput }
+    ];
 
     const radioSections = [
-
         { id: 1, title: "How do you rate your rubber duck consistency?", uniqueid: "first", setRating: setConsistencyRating },
         { id: 2, title: "How do you rate your rubber duck color?", uniqueid: "second", setRating: setColorRating },
         { id: 3, title: "How do you rate your rubber duck logo?", uniqueid: "third", setRating: setLogoRating}
@@ -35,7 +32,9 @@ const Form = () => {
                 worstFeatures: worstFeatures,
                 consistencyRating: consistencyRating,
                 colorRating: colorRating,
-                logoRating: logoRating
+                logoRating: logoRating,
+                username: usernameInput,
+                email: emailInput
             });
     }
 
@@ -57,6 +56,8 @@ const Form = () => {
             <InputGroup 
                 labelText="What else have you got to say about your rubber duck?"
                 isTextArea={true}
+                inputValue={textAreaInput}
+                setExtraInformation={setTextAreaInput}
             />
             { inputGroupInfo.map((group) => (
                 <InputGroup 
@@ -65,6 +66,8 @@ const Form = () => {
                     isTextArea={false}
                     inputType={group.type}
                     inputName={group.name}
+                    inputValue={group.state}
+                    setUserInformation={group.setState}
             />
             ))}
             <input 

@@ -1,19 +1,9 @@
 import React, { useState } from "react";
-
-interface FormGroupProps {
-    text: string
-    onChange: (selectedFeatures: string[]) => void
-}
+import { FormGroupProps } from "../../interfaces/interface";
+import { checkboxList } from "../../data/data";
 
 const FormGroup = ({ text, onChange }: FormGroupProps) => {
     const [selectedFeatures, setSelectedFeatures] = useState<string []>([]);
-
-    const checkboxList = [
-        {id: 1, value: "It's yellow!"}, 
-        {id: 2, value: "It squeaks!"}, 
-        {id: 3, value: "It has a logo!"}, 
-        {id: 4, value: "Its big!"}
-    ];
 
     const handleCheckboxClick = (value: string) => {
         const updatedFeatures = selectedFeatures.includes(value) ? selectedFeatures.filter(item => item !== value) : [...selectedFeatures, value];
