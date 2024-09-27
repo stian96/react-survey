@@ -4,11 +4,12 @@ interface FormGroupRadioProps {
     text: string
     groupName: string
     uniqueId: string
+    radioIds: string[]
+    setRadioIds: (id: string[]) => void
     setRating: (value: number) => void
 }
 
-const FormGroupRadio = ({ text, groupName, uniqueId, setRating }: FormGroupRadioProps) => {
-    const [radioId, setRadioId] = useState('');
+const FormGroupRadio = ({ text, groupName, uniqueId, radioIds, setRadioIds, setRating }: FormGroupRadioProps) => {
 
     const radioInfo = [
         { id: 'color-one', value: 1 },
@@ -17,8 +18,9 @@ const FormGroupRadio = ({ text, groupName, uniqueId, setRating }: FormGroupRadio
         { id: 'color-four', value: 4 }
     ];
 
-    const handleChange = (value: number, radioId: string) => {
-        setRadioId(radioId);
+    const handleChange = (value: number, newId: string) => {
+        const filteredIds = radioIds.filter(id => !id.startsWith(groupName));
+        setRadioIds([...filteredIds, newId]);
         setRating(value);
     };
 
@@ -32,7 +34,7 @@ const FormGroupRadio = ({ text, groupName, uniqueId, setRating }: FormGroupRadio
                             id={`${item.id}-${uniqueId}`} 
                             type="radio" 
                             name={groupName} 
-                            checked={`${item.id}-${uniqueId}` === radioId}
+                            checked={radioIds.includes(`${item.id}-${uniqueId}`)}
                             onChange={() => handleChange(item.value, `${item.id}-${uniqueId}`)}
                         />
                         <label htmlFor={`${item.id}-${uniqueId}`}>{item.value}</label>

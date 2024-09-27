@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormGroup from "./FormGroup";
 import InputGroup from "./InputGroup";
 import FormGroupRadio from "./FormGroupRadio";
@@ -12,6 +12,7 @@ const Form = ({ onSubmit }) => {
     const [textAreaInput, setTextAreaInput] = useState('');
     const [usernameInput, setUsernameInput] = useState('');
     const [emailInput, setEmailInput] = useState('');
+    const [radioIds, setRadioIds] = useState<string[]>([]);
 
     const formGroup = [
         { id: 1, text: "What would you say that are the best features of your rubber duck?", feature: bestFeatures, setState: setBestFeatures },
@@ -54,6 +55,7 @@ const Form = ({ onSubmit }) => {
         setTextAreaInput('');
         setUsernameInput('');
         setEmailInput('');
+        setRadioIds([]);
     }
 
     return (
@@ -73,10 +75,11 @@ const Form = ({ onSubmit }) => {
                     text={radioItem.title} 
                     groupName={`group-${radioItem.id}`}
                     uniqueId={radioItem.uniqueid}
+                    radioIds={radioIds}
+                    setRadioIds={setRadioIds}
                     setRating={radioItem.setRating}
                 />
             ))}
-            
             <InputGroup 
                 labelText="What else have you got to say about your rubber duck?"
                 isTextArea={true}

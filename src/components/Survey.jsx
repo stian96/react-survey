@@ -17,7 +17,7 @@ const Survey = () => {
         <AnswersList answerList={answerList} />
       </section>
       <section className="survey__form">
-        <Form onSubmit={handleFormSubmit}/>
+        <Form onSubmit={handleFormSubmit} />
       </section>
     </main>
   );
