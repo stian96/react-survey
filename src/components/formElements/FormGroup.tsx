@@ -16,10 +16,7 @@ const FormGroup = ({ text, onChange }: FormGroupProps) => {
     ];
 
     const handleCheckboxClick = (value: string) => {
-        const updatedFeatures = selectedFeatures.includes(value)
-            ? selectedFeatures.filter(item => item !== value)
-            : [...selectedFeatures, value];
-        
+        const updatedFeatures = selectedFeatures.includes(value) ? selectedFeatures.filter(item => item !== value) : [...selectedFeatures, value];
         setSelectedFeatures(updatedFeatures);
         onChange(updatedFeatures); 
     };

@@ -7,9 +7,9 @@ import FormGroupRadio from "./FormGroupRadio";
 const Form = () => {
     const [bestFeatures, setBestFeatures] = useState<string[]>([]);
     const [worstFeatures, setWorstFeatures] = useState<string[]>([]);
-    const [consistencyRating, setConsistencyRating] = useState(0);
-    const [colorRating, setColorRating] = useState(0);
-    const [logoRating, setLogoRating] = useState(0);
+    const [consistencyRating, setConsistencyRating] = useState<number>(0);
+    const [colorRating, setColorRating] = useState<number>(0);
+    const [logoRating, setLogoRating] = useState<number>(0);
     const [textAreaInput, setTextAreaInput] = useState('');
     const [usernameInput, setUsernameInput] = useState('');
     const [emailInput, setEmailInput] = useState('');
@@ -21,14 +21,22 @@ const Form = () => {
     ]
 
     const radioSections = [
-        { id: 1, title: "How do you rate your rubber duck consistency?", uniqueid: "first" },
-        { id: 2, title: "How do you rate your rubber duck color?", uniqueid: "second" },
-        { id: 3, title: "How do you rate your rubber duck logo?", uniqueid: "third" }
+
+        { id: 1, title: "How do you rate your rubber duck consistency?", uniqueid: "first", setRating: setConsistencyRating },
+        { id: 2, title: "How do you rate your rubber duck color?", uniqueid: "second", setRating: setColorRating },
+        { id: 3, title: "How do you rate your rubber duck logo?", uniqueid: "third", setRating: setLogoRating}
     ];
 
     const submit = (event) => {
         event.preventDefault();
-        console.log({ bestFeatures: bestFeatures, worstFeatures: worstFeatures });
+        console.log(
+            { 
+                bestFeatures: bestFeatures, 
+                worstFeatures: worstFeatures,
+                consistencyRating: consistencyRating,
+                colorRating: colorRating,
+                logoRating: logoRating
+            });
     }
 
     return (
@@ -42,6 +50,7 @@ const Form = () => {
                     text={radioItem.title} 
                     groupName={`group-${radioItem.id}`}
                     uniqueId={radioItem.uniqueid}
+                    setRating={radioItem.setRating}
                 />
             ))}
             

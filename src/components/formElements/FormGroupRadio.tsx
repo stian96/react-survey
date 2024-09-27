@@ -4,9 +4,10 @@ interface FormGroupRadioProps {
     text: string
     groupName: string
     uniqueId: string
+    setRating: (value: number) => void
 }
 
-const FormGroupRadio = ({ text, groupName, uniqueId }: FormGroupRadioProps) => {
+const FormGroupRadio = ({ text, groupName, uniqueId, setRating }: FormGroupRadioProps) => {
     const [radioId, setRadioId] = useState('');
 
     const radioInfo = [
@@ -15,6 +16,11 @@ const FormGroupRadio = ({ text, groupName, uniqueId }: FormGroupRadioProps) => {
         { id: 'color-three', value: 3 },
         { id: 'color-four', value: 4 }
     ];
+
+    const handleChange = (value: number, radioId: string) => {
+        setRadioId(radioId);
+        setRating(value);
+    };
 
     return (
         <div className="form__group radio">
@@ -27,7 +33,7 @@ const FormGroupRadio = ({ text, groupName, uniqueId }: FormGroupRadioProps) => {
                             type="radio" 
                             name={groupName} 
                             checked={`${item.id}-${uniqueId}` === radioId}
-                            onChange={() => setRadioId(`${item.id}-${uniqueId}`)}
+                            onChange={() => handleChange(item.value, `${item.id}-${uniqueId}`)}
                         />
                         <label htmlFor={`${item.id}-${uniqueId}`}>{item.value}</label>
                     </li>
